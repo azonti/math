@@ -1,7 +1,7 @@
-From mathcomp Require Import all_ssreflect.
+From mathcomp Require Import ssreflect ssrbool ssrnat.
 From Coq Require Import FunctionalExtensionality.
 
-Class Field (K : Prop) := {
+Class Field (K : Set) := {
   addition : K -> K -> K;
   addition_commutativity : forall k l : K, addition k l = addition l k;
   addition_associativity : forall k l m : K, addition k (addition l m) = addition (addition k l) m;
@@ -30,7 +30,7 @@ Notation "0" := zero : field_scope.
 Notation "k * l" := (multiplication k l) : field_scope.
 Notation "1" := one : field_scope.
 
-Lemma Field_multiplication_absorbability (K : Prop) {FK : Field K} :
+Lemma Field_multiplication_absorbability (K : Set) {FK : Field K} :
   forall k : K, k * 0 = 0.
 Proof.
   move=> k.
@@ -42,7 +42,7 @@ Proof.
   by rewrite addition_invertibility.
 Qed.
 
-Lemma Field_multiplication_opposite_one (K : Prop) {FK : Field K} :
+Lemma Field_multiplication_opposite_one (K : Set) {FK : Field K} :
   forall k : K, k * -1%field = - k.
 Proof.
   move=> k.
